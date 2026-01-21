@@ -1,7 +1,7 @@
 #include <FastLED.h>
 #include <Adafruit_VCNL4010.h>
 
-#define DATA_PIN 20
+#define DATA_PIN 25
 #define NUM_LEDS 30
 CRGB leds[NUM_LEDS];
 
