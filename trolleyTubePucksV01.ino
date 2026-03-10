@@ -1,7 +1,7 @@
 #include <FastLED.h>
 #include <Adafruit_VCNL4010.h>
 
-#define DATA_PIN 25
+#define DATA_PIN 41
 #define NUM_LEDS 30
 CRGB leds[NUM_LEDS];
 
@@ -10,6 +10,9 @@ Adafruit_VCNL4010 vcnl;
 float baseline;
 float proxVal;
 bool hit = false;
+int rVal = 255;
+int gVal = 255;
+int bVal = 255;
 
 void setup() {
   Serial.begin(9600);
@@ -20,20 +23,22 @@ void setup() {
   }
   Serial.println("Found VCNL4010");
   baseline = vcnl.readProximity();
+  FastLED.showColor(CRGB(255, 0, 0));
 }
 
 void showHit() {
-  for (int i = 0; i < NUM_LEDS; i++){
-    leds[i].setRGB(255, 100, 0);
-  }
-  FastLED.show();
+  gVal = 255;
+  bVal = 255;
+  FastLED.showColor(CRGB(255, gVal, bVal));
   delay(500);
-  for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i].setRGB(0, 0, 0);
+  while(gVal > 0 && bVal > 0){
+    gVal--;
+    bVal--;
+    FastLED.showColor(CRGB(255, gVal, bVal));
   }
-  FastLED.show();
-  delay(500);
+  FastLED.showColor(CRGB(255, 0, 0));
   hit = false;
+  Serial.println("hit");
 }
 
 void loop() {
@@ -43,6 +48,4 @@ void loop() {
     showHit();
   }
   Serial.println(proxVal);
-  
-  //Serial.println(hit);
 }
