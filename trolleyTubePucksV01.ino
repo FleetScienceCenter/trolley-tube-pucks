@@ -36,18 +36,17 @@ void setup() {
   }
   Serial.println("Found VCNL4010");
   baseline = vcnl.readProximity();
-  FastLED.showColor(CRGB(255, 0, 0));
-
+  
   AudioMemory(8);
   sgtl5000_1.enable();
   sgtl5000_1.volume(0.5);
   if (!(SD.begin(SDCARD_CS_PIN))) {
-    // stop here, but print a message repetitively
     while (1) {
       Serial.println("Unable to access the SD card");
       delay(500);
     }
   }
+  FastLED.showColor(CRGB(255, 0, 0));
 }
 
 void showHit() {
